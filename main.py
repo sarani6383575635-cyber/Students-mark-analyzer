@@ -1,14 +1,18 @@
 import csv
 import os
 
-name = input("enter student full name:")
-Subjects = ["python","database","maths","java","DS"]
+name = input("Enter student full name: ")
+
+Subjects = ["Python", "Database", "Maths", "Java", "DS"]
 marks = []
+
 for Subject in Subjects:
-    mark = float (input(f"enter marks for {Subjects}:"))
+    mark = float(input(f"Enter marks for {Subject}: "))
     marks.append(mark)
+
 total = sum(marks)
 average = total / len(marks)
+
 if average >= 90:
     grade = "A+"
 elif average >= 80:
@@ -21,31 +25,43 @@ elif average >= 50:
     grade = "D"
 else:
     grade = "F"
-result ="pass" if average >= 40 else "fail"
-print(f"Student name: {name}")
-print(f"Total marks: {total}")
-print(f"average: {average:.2f}")
-print(f"grade: {grade}")
-print(f"result: {result}")
 
+result = "Pass" if average >= 40 else "Fail"
+
+
+cgpa = average / 10
+
+print("\nStudent name:", name)
+print("Total marks:", total)
+print("Average:", round(average, 2))
+print("Grade:", grade)
+print("CGPA:", round(cgpa, 2))
+print("Result:", result)
+
+# Save result in CSV file
 file_name = "Student_results.csv"
 file_exists = os.path.exists(file_name)
-with open(file_name,"a",newline = "") as file:
+
+with open(file_name, "a", newline="") as file:
     writer = csv.writer(file)
+
     if not file_exists:
         writer.writerow([
-            "Student name",
-            "Total marks",
-            "average",
-            "grade",
-            "results"
+            "Student Name",
+            "Total Marks",
+            "Average",
+            "Grade",
+            "CGPA",
+            "Result"
         ])
 
     writer.writerow([
         name,
         total,
-        round(average,2),
+        round(average, 2),
         grade,
+        round(cgpa, 2),
         result
-    ])    
+    ])
+
 print("\nResult has been saved to Student_results.csv")
